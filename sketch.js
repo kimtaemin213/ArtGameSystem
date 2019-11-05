@@ -13,6 +13,10 @@ let yFruit = 0;
 let xFruit2 = 0;
 let yFruit2 = 0;
 
+let canvas;
+let canvasWidth = 600;
+let canvasHeight = 400;
+
 function setup() {
   scoreElem = createDiv('Score = 0');
   scoreElem.position(20, 20);
@@ -31,8 +35,9 @@ function setup() {
 
   snake = new Snake();
   snake2 = new Snake2();
-  canvas = createCanvas(600, 400);
+  canvas = createCanvas(canvasWidth, canvasHeight);
   canvas.position(windowWidth/2 - canvasWidth/2, 20);
+  noCursor();
   frameRate(15);
   stroke(255);
   strokeWeight(10);
