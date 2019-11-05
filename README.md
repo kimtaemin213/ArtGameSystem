@@ -10,4 +10,4 @@ Art Game System Template
  * 저장소의 Settings에서 Pages를 설정할 수 있습니다.
 
 # 수정사항
-*아직 없음.
+* Snake Code
