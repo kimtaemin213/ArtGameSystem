@@ -31,7 +31,7 @@ function setup() {
 
   snake = new Snake();
   snake2 = new Snake2();
-  createCanvas(1000, 700);
+  createCanvas(600, 600);
   frameRate(15);
   stroke(255);
   strokeWeight(10);
