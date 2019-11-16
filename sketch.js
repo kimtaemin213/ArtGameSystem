@@ -1,77 +1,118 @@
-//Collisions
-//Collision between groups
-//function called upon collision
+//flappy bird-like
+//mouse click or x to flap
 
-var obstacles;
-var collectibles;
-var asterisk;
+var GRAVITY = 0.3;
+var FLAP = -7;
+var GROUND_Y = 450;
+var MIN_OPENING = 300;
+var bird, ground;
+var pipes;
+var gameOver;
+var birdImg, pipeImg, groundImg, bgImg;
+
 
 function setup() {
-  createCanvas(800, 400);
+  createCanvas(400, 600);
 
+  birdImg = loadImage('assets/flappy_bird.png');
+  pipeImg = loadImage('assets/flappy_pipe.png');
+  groundImg = loadImage('assets/flappy_ground.png');
+  bgImg = loadImage('assets/flappy_bg.png');
 
-  //create a user controlled sprite
-  asterisk = createSprite(400, 200);
-  asterisk.addAnimation('normal', 'assets/asterisk_normal0001.png', 'assets/asterisk_normal0003.png');
+  bird = createSprite(width/2, height/2, 40, 40);
+  bird.rotateToDirection = true;
+  bird.velocity.x = 4;
+  bird.setCollider('circle', 0, 0, 20);
+  bird.addImage(birdImg);
 
-  asterisk.addAnimation('stretch', 'assets/asterisk_stretching0001.png', 'assets/asterisk_stretching0008.png');
+  ground = createSprite(800/2, GROUND_Y+100); //image 800x200
+  ground.addImage(groundImg);
 
-  //create 2 groups
-  obstacles = new Group();
-  collectibles = new Group();
+  pipes = new Group();
+  gameOver = true;
+  updateSprites(false);
 
-  for(var i=0; i<4; i++)
-  {
-    var box = createSprite(random(0, width), random(0, height));
-    box.addAnimation('normal', 'assets/box0001.png', 'assets/box0003.png');
-    obstacles.add(box);
-  }
-
-  for(var j=0; j<10; j++)
-  {
-    var dot = createSprite(random(0, width), random(0, height));
-    dot.addAnimation('normal', 'assets/small_circle0001.png', 'assets/small_circle0001.png');
-    collectibles.add(dot);
-  }
-
+  camera.position.y = height/2;
 }
-
-
 
 function draw() {
-  background(255, 255, 255);
 
-  //if no arrow input set velocity to 0
-  asterisk.velocity.x = (mouseX-asterisk.position.x)/10;
-  asterisk.velocity.y = (mouseY-asterisk.position.y)/10;
+  if(gameOver && keyWentDown('x'))
+    newGame();
 
-  //asterisk collides against all the sprites in the group obstacles
-  asterisk.collide(obstacles);
+  if(!gameOver) {
 
-  //I can define a function to be called upon collision, overlap, displace or bounce
-  //see collect() below
-  asterisk.overlap(collectibles, collect);
+    if(keyWentDown('x'))
+      bird.velocity.y = FLAP;
 
-  //if the animation is "stretch" and it reached its last frame
-  if(asterisk.getAnimationLabel() == 'stretch' && asterisk.animation.getFrame() == asterisk.animation.getLastFrame())
-  {
-    asterisk.changeAnimation('normal');
+    bird.velocity.y += GRAVITY;
+
+    if(bird.position.y<0)
+      bird.position.y = 0;
+
+    if(bird.position.y+bird.height/2 > GROUND_Y)
+      die();
+
+    if(bird.overlap(pipes))
+      die();
+
+    //spawn pipes
+    if(frameCount%60 == 0) {
+      var pipeH = random(50, 300);
+      var pipe = createSprite(bird.position.x + width, GROUND_Y-pipeH/2+1+100, 80, pipeH);
+      pipe.addImage(pipeImg);
+      pipes.add(pipe);
+
+      //top pipe
+      if(pipeH<200) {
+        pipeH = height - (height-GROUND_Y)-(pipeH+MIN_OPENING);
+        pipe = createSprite(bird.position.x + width, pipeH/2-100, 80, pipeH);
+        pipe.mirrorY(-1);
+        pipe.addImage(pipeImg);
+        pipes.add(pipe);
+      }
+    }
+
+    //get rid of passed pipes
+    for(var i = 0; i<pipes.length; i++)
+      if(pipes[i].position.x < bird.position.x-width/2)
+        pipes[i].remove();
   }
 
-  drawSprites();
+  camera.position.x = bird.position.x + width/4;
+
+  //wrap ground
+  if(camera.position.x > ground.position.x-ground.width+width/2)
+    ground.position.x+=ground.width;
+
+  background(247, 134, 131);
+  camera.off();
+  image(bgImg, 0, GROUND_Y-190);
+  camera.on();
+
+  drawSprites(pipes);
+  drawSprite(ground);
+  drawSprite(bird);
 }
 
-//the first parameter will be the sprite (individual or from a group)
-//calling the function
-//the second parameter will be the sprite (individual or from a group)
-//against which the overlap, collide, bounce, or displace is checked
-function collect(collector, collected)
-{
-  //collector is another name for asterisk
-  //show the animation
-  collector.changeAnimation('stretch');
-  collector.animation.rewind();
-  //collected is the sprite in the group collectibles that triggered
-  //the event
-  collected.remove();
+function die() {
+  updateSprites(false);
+  gameOver = true;
+}
+
+function newGame() {
+  pipes.removeSprites();
+  gameOver = false;
+  updateSprites(true);
+  bird.position.x = width/2;
+  bird.position.y = height/2;
+  bird.velocity.y = 0;
+  ground.position.x = 800/2;
+  ground.position.y = GROUND_Y+100;
+}
+
+function mousePressed() {
+  if(gameOver)
+    newGame();
+  bird.velocity.y = FLAP;
 }
