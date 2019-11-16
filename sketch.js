@@ -65,7 +65,7 @@ function draw() {
 
       //top pipe
       if(pipeH<200) {
-        pipeH = height - (height-GROUND_Y)-(pipeH+MIN_OPENING);
+        pipeH = height - (height-GROUND_Y)-(pipeH+MIN_OPENING);a
         pipe = createSprite(bird.position.x + width, pipeH/2-100, 80, pipeH);
         pipe.mirrorY(-1);
         pipe.addImage(pipeImg);
@@ -114,5 +114,5 @@ function newGame() {
 function mousePressed() {
   if(gameOver)
     newGame();
-  bird.velocity.y = FLAP;
+
 }
