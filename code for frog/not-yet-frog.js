@@ -5,10 +5,11 @@ let sound_hit;
 let canvasWidth =400;
 let canvasHeight=400;
 let car_sound;
-
+let img;
 function preload() {
   sound_hit = loadSound('hit.wav');
   car_sound = loadSound('4.wav');
+  img = loadImage('frog.png');
 }
 
 function setup() {
@@ -50,6 +51,7 @@ function draw() {
 
 function resetGame() {
   frog = createSprite(width/2, height-30, 20, 40);
+  frog.addImage(img);
   goal = createSprite(width/2, 0, width, 4);
   car1 = createSprite(0, height/2, 60, 30);
 
