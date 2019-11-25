@@ -2,11 +2,13 @@ let frog;
 let car1;
 let goal;
 let sound_hit;
+let bg;
 let canvasWidth =400;
 let canvasHeight=400;
 
 function preload() {
   sound_hit = loadSound('hit.wav');
+  bg = loadImage('bg.png');
 }
 
 function setup() {
@@ -17,12 +19,12 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(bg);
 
 
   if (car1.position.x >= width) {
     car1.position.x = 0;
-    car1.setVelocity(random(3, 10), 0);
+    car1.setVelocity(random(0.5, 2), 0);
   }
 
 
