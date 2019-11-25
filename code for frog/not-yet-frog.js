@@ -2,11 +2,15 @@ let frog;
 let car1;
 let goal;
 let sound_hit;
+let sound_bgm;
+
 let canvasWidth =400;
 let canvasHeight=400;
 
 function preload() {
   sound_hit = loadSound('hit.wav');
+  sound_bgm = loadSound('theme.mp3');
+
 }
 
 function setup() {
