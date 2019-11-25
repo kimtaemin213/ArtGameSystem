@@ -4,9 +4,11 @@ let goal;
 let sound_hit;
 let canvasWidth =400;
 let canvasHeight=400;
+let car_sound;
 
 function preload() {
   sound_hit = loadSound('hit.wav');
+  car_sound = loadSound('4.wav');
 }
 
 function setup() {
