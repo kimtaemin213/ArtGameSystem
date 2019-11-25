@@ -31,8 +31,8 @@ function draw() {
 
 
   if (frog.overlap(car1)) {
-    noLoop();
-    timer();
+    car1.position.x = 200;
+
   }
 
   // 충돌 시 사운드 효과에 대한 또 다른 방법
@@ -72,11 +72,6 @@ function nextLevel() {
   frog.position.y = height-30;
 }
 
-function timer() {
-  time = mills();
-  if(mills() >3000) {
-    Loop();
-  }
-}
+
 
 
