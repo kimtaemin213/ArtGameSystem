@@ -1,5 +1,6 @@
 # COMPOSITION
-* zerocrssing circuit
-* snake code for 2player
+* This code for my final 
+* it's still practicing
 
-# code for zerocrossing
+
+
