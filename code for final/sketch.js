@@ -4,6 +4,7 @@ let canvasHeight=800;
 let character,obj;
 let character_posX,character_posY;
 let obj_posX,obj_posY;
+let energy;
 
 function setup() {
   canvas = createCanvas(canvasWidth, canvasHeight);
@@ -20,6 +21,10 @@ function setup() {
 function draw() {
   background(255);
   drawSprites();
+  fill(0,0,0);
+  textSize(50);
+  textAlign(CENTER);
+  text("YOUR ENERGY",width/2,height - 85);
 
   if (keyIsDown(UP_ARROW)) {
     character.position.y -= 3;
@@ -40,6 +45,8 @@ function show() {
   character =createSprite(character_posX,character_posY,50,50);
   character.shapeColor="black";
   obj =createSprite(obj_posX,obj_posY,50,50);
+  energy = createSprite(width/2,height-50,500,30);
+  energy.shapeColor="RED";
 
 }
 
