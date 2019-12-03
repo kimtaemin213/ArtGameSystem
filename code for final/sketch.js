@@ -18,16 +18,39 @@ function setup() {
 }
 
 function draw() {
-background(255);
-drawSprites();
+  background(255);
+  drawSprites();
 
+  if (keyIsDown(UP_ARROW)) {
+    character.position.y -= 3;
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    character.position.y += 3;
 
+  }
+  if (keyIsDown(LEFT_ARROW)) {
+    character.position.x -= 3;
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    character.position.x += 3;
+  }
 }
+
 function show() {
   character =createSprite(character_posX,character_posY,50,50);
   character.shapeColor="black";
   obj =createSprite(obj_posX,obj_posY,50,50);
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
