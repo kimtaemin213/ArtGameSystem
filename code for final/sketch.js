@@ -12,7 +12,7 @@ function setup() {
   canvas.position(windowWidth/2 - canvasWidth/2, 20);
   character_posX =random(300,900);
   character_posY =random(0,height/2);
-  obj_posX = random(0,1280);
+  obj_posX = 120;
   obj_posY = random(0,800);
 
   show();
