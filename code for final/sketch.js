@@ -5,7 +5,9 @@ let character,obj;
 let character_posX,character_posY;
 let obj_posX,obj_posY;
 let energy;
-let energy_max = 500;
+let energy_max = 200;
+let push = false;
+
 
 function setup() {
   canvas = createCanvas(canvasWidth, canvasHeight);
@@ -55,8 +57,34 @@ function show() {
 
 function HP() {
   if(keyIsDown(32)) {
+    push = true;
     energy_max --;
+
+    if(energy_max < 1) {
+      noLoop();
+      energy_max == 1;
+      fill(255,50,0);
+      textAlign(CENTER);
+      textSize(200);
+      text("GAME OVER",width/2,height/2);
+
+    }
   }
+
+  else {
+    push = false;
+  }
+
+  if(energy_max > 200 ) {
+    energy_max = 200;
+  }
+
+
+
+  if(push == false) {
+    energy_max = energy_max+0.5;
+  }
+
 }
 
 function lift() {
