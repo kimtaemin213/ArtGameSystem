@@ -23,6 +23,7 @@ function draw() {
   background(255);
   HP();
   drawSprites();
+  lift();
   fill(0,0,0);
   textSize(50);
   textAlign(CENTER);
@@ -50,8 +51,6 @@ function show() {
   character =createSprite(character_posX,character_posY,50,50);
   character.shapeColor="black";
   obj =createSprite(obj_posX,obj_posY,50,50);
-
-
 }
 
 function HP() {
@@ -59,6 +58,19 @@ function HP() {
     energy_max --;
   }
 }
+
+function lift() {
+  if(character.overlap(obj)&&keyIsDown(32)) {
+
+    obj.position.x = character.position.x -10;
+    obj.position.y = character.position.y;
+  }
+
+}
+
+
+
+
 
 
 
