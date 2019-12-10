@@ -29,7 +29,7 @@ function draw() {
   fill(0,0,0);
   textSize(50);
   textAlign(CENTER);
-  text("YOUR ENERGy",width/2,height - 85);
+  text("YOUR ENERGY",width/2,height - 85);
   rectMode(CENTER);
   energy = rect(width/2,height-50,energy_max,30);
 
